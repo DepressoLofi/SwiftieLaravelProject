@@ -1,16 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('main')
+<link rel="stylesheet" type="text/css" href="{{ asset('css/home.css') }}">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
 
-<body>
-    <h1>Hello This is home page</h1>
-
-</body>
-
-</html>
+@section('content')
+    <h1 class="text-3xl font-bold underline">Hello This is home page</h1>
+@endsection

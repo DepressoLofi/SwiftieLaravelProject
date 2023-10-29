@@ -16,11 +16,10 @@ use App\Http\Controllers\SwiftieController;
 
 Route::get('/', function () {
     return view('home');
-});
+})->name('home');
 
 Route::get('/register', [SwiftieController::class, 'registerPage'])->name('swiftie#register');
 
 Route::post('/register', [SwiftieController::class, 'register'])->name('register');
 
 Route::get('list', [SwiftieController::class, 'listPage'])->name('swiftie#list');
-
