@@ -23,7 +23,3 @@ Route::get('/register', [SwiftieController::class, 'registerPage'])->name('swift
 Route::post('/register', [SwiftieController::class, 'register'])->name('register');
 
 Route::get('list', [SwiftieController::class, 'listPage'])->name('swiftie#list');
-
-Route::get('/example', function () {
-    return view('example');
-});
