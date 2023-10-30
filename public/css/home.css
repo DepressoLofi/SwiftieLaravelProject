@@ -1,3 +1,6 @@
 body {
-    background-image: url('../images/giphy.gif');
+    background-image: url('../images/sea.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
 }

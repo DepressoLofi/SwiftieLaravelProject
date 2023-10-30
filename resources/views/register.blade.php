@@ -7,7 +7,7 @@
                 @csrf
                 <h1 class="mb-4 text-3xl text-center font-extrabold leading-none tracking-tight text-gray-900 mb-10">
                     Swiftie Form</h1>
-                <div class="md:flex md:items-center mb-6">
+                <div class="md:flex md:items-center mb-6 mt-10">
                     <div class="md:w-1/3">
                         <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="swiftieName">
                             Name

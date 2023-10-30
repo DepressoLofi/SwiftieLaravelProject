@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Swiftie Web</title>
     @vite('resources/css/app.css')
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/home.css') }}">
 </head>
 
 <body class="bg-zinc-200">
