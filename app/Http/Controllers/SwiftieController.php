@@ -8,11 +8,25 @@ use Illuminate\Support\Facades\DB;
 
 class SwiftieController extends Controller
 {
+
+    // Create
     public function registerPage()
     {
         return view('register');
     }
 
+    public function register(Request $request)
+    {
+        $data = $this->swiftieRegister($request);
+        $created = swiftie::create($data);
+        if ($created) {
+            return redirect()->back()->with('success', true);
+        } else {
+            return redirect()->back()->with('success', false);
+        }
+    }
+
+    // Read
     public function listPage()
     {
         $swifties = $this->swiftieList();
@@ -33,16 +47,7 @@ class SwiftieController extends Controller
         return view('list', compact('swifties', 'count', 'taylorSwift', 'fearless', 'speakNow', 'red', 'nen', 'reputation', 'lover', 'folklore', 'evermore', 'midnights'));
     }
 
-    public function register(Request $request)
-    {
-        $data = $this->swiftieRegister($request);
-        $created = swiftie::create($data);
-        if ($created) {
-            return redirect()->back()->with('success', true);
-        } else {
-            return redirect()->back()->with('success', false);
-        }
-    }
+    // * private functions
 
     private function swiftieRegister($request)
     {
@@ -65,5 +70,40 @@ class SwiftieController extends Controller
     {
         return
             DB::table('swifties')->count();
+    }
+
+
+
+    //**** getting API data
+    // get swiftie datas
+    public function getSwiftie()
+    {
+        $swifties = DB::table('swifties')
+            ->join('albums', 'swifties.album_id', '=', 'albums.album_id')
+            ->select('swifties.name', 'albums.album_name')
+            ->get()->toArray();
+
+        return response()->json($swifties);
+    }
+
+    // create swiftie
+    public function storeSwiftie(Request $request)
+    {
+        if ($request->album_id > 0 && $request->album_id <= 10) {
+            $newSwiftie = new Swiftie;
+            $newSwiftie->name = $request->name;
+            $newSwiftie->album_id = $request->album_id;
+            $newSwiftie->save();
+            return response()->json([
+                'message'   =>  'A record is created',
+                'status'    =>  'success',
+                'Swiftie'   =>  $newSwiftie
+            ]);
+        } else {
+            return response()->json([
+                'message'   =>  'album_id must be between 1 and 10',
+                'status' => 'fail'
+            ]);
+        }
     }
 }

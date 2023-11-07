@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\SwiftieController;
 
 /*
@@ -14,6 +15,7 @@ use App\Http\Controllers\SwiftieController;
 |
 */
 
+//Swiftie List
 Route::get('/', function () {
     return view('home');
 })->name('home');
@@ -22,4 +24,14 @@ Route::get('/register', [SwiftieController::class, 'registerPage'])->name('swift
 
 Route::post('/register', [SwiftieController::class, 'register'])->name('register');
 
-Route::get('list', [SwiftieController::class, 'listPage'])->name('swiftie#list');
+Route::get('/list', [SwiftieController::class, 'listPage'])->name('swiftie#list');
+
+
+
+//BLogs
+Route::get('/blogs/create', [BlogController::class, 'create'])->name('blogs.create');
+
+Route::post('/blogs', [BlogController::class, 'store'])->name('blogs.store');
+
+//read
+Route::get('/blogs', [BlogController::class, 'index'])->name('blogs.index');

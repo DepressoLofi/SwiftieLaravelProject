@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Swiftie Web</title>
     @vite('resources/css/app.css')
+    <link rel="icon" type="image/x-icon" href="{{ URL('images/taylor.png') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/home.css') }}">
 </head>
 
@@ -51,6 +52,11 @@
                 </ul>
 
                 <div class="flex items-center">
+                    <a href="{{ route('swiftie#list') }}"><button type="button" data-te-ripple-init
+                            data-te-ripple-color="light"
+                            class="mr-3 inline-block rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-primary transition duration-150 ease-in-out hover:bg-neutral-100 hover:text-primary-600 focus:text-primary-600 focus:outline-none focus:ring-0 active:text-primary-700 motion-reduce:transition-none">
+                            Blogs
+                        </button></a>
                     <a href="{{ route('swiftie#list') }}"><button type="button" data-te-ripple-init
                             data-te-ripple-color="light"
                             class="mr-3 inline-block rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-primary transition duration-150 ease-in-out hover:bg-neutral-100 hover:text-primary-600 focus:text-primary-600 focus:outline-none focus:ring-0 active:text-primary-700 motion-reduce:transition-none">
