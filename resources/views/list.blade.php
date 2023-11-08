@@ -1,20 +1,11 @@
-@extends('main')
+@extends('layout.main')
 
 @section('content')
-<?php
-
-$dataPoints = [['label' => 'Taylor Swift', 'y' => $taylorSwift, 'color' => '#55b645'],
-                ['label' => 'Fearless', 'y' => $fearless, 'color' => '#e4d425'],
-                ['label' => 'Speak Now', 'y' => $speakNow, 'color' => '#ca5cce'],
-                ['label' => 'Red', 'y' => $red, 'color' => '#e7163a'],
-                ['label' => '1989', 'y' => $nen, 'color' => '#3996bd'],
-                ['label' => 'Reputation', 'y' => $reputation, 'color' => '#393436'],
-                ['label' => 'Lover', 'y' => $lover, 'color' => '#f0aac6'],
-                ['label' => 'Folklore', 'y' => $folklore, 'color' => '#625f57'],
-                ['label' => 'Evermore', 'y' => $evermore, 'color' => '#c76b03'],
-                ['label' => 'Midnights', 'y' => $midnights, 'color' => '#3c435d']];
-
-?>
+    <?php
+    
+    $dataPoints = [['label' => 'Taylor Swift', 'y' => $taylorSwift, 'color' => '#55b645'], ['label' => 'Fearless', 'y' => $fearless, 'color' => '#e4d425'], ['label' => 'Speak Now', 'y' => $speakNow, 'color' => '#ca5cce'], ['label' => 'Red', 'y' => $red, 'color' => '#e7163a'], ['label' => '1989', 'y' => $nen, 'color' => '#3996bd'], ['label' => 'Reputation', 'y' => $reputation, 'color' => '#393436'], ['label' => 'Lover', 'y' => $lover, 'color' => '#f0aac6'], ['label' => 'Folklore', 'y' => $folklore, 'color' => '#625f57'], ['label' => 'Evermore', 'y' => $evermore, 'color' => '#c76b03'], ['label' => 'Midnights', 'y' => $midnights, 'color' => '#3c435d']];
+    
+    ?>
 
 
     <div class="mt-10 mb-14 text-center">

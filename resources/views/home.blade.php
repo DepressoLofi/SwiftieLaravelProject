@@ -1,4 +1,4 @@
-@extends('main')
+@extends('layout.main')
 
 @section('content')
     <div class="flex items-center justify-center" style="height: 650px">

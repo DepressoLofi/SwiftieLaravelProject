@@ -27,11 +27,29 @@ Route::post('/register', [SwiftieController::class, 'register'])->name('register
 Route::get('/list', [SwiftieController::class, 'listPage'])->name('swiftie#list');
 
 
+//blog view
+Route::get('/blogs', [BlogController::class, 'index'])->name('blogs.index');
 
-//BLogs
-Route::get('/blogs/create', [BlogController::class, 'create'])->name('blogs.create');
+Route::get('/blogs/{id}', [BlogController::class, "show"])->name('blogs.Show');
 
-Route::post('/blogs', [BlogController::class, 'store'])->name('blogs.store');
+//Admin BLogs
+//create
+
+Route::get('admin/blogs/create', [BlogController::class, 'create'])->name('blogs.adminCreate');
+
+Route::post('admin/blogs', [BlogController::class, 'store'])->name('blogs.adminStore');
+
 
 //read
-Route::get('/blogs', [BlogController::class, 'index'])->name('blogs.index');
+
+Route::get('admin/blogs', [BlogController::class, 'adminIndex'])->name('blogs.adminIndex');
+
+//update
+
+Route::get('admin/blogs/{id}/edit', [BlogController::class, "adminEdit"])->name('blogs.adminEdit');
+
+Route::post('admin/blogs/{id}', [BlogController::class, "adminUpdate"])->name('blogs.adminUpdate');
+
+
+//delete
+Route::delete('admin/blogs/{id}', [BlogController::class, 'adminDestroy'])->name('blogs.adminDestroy');
