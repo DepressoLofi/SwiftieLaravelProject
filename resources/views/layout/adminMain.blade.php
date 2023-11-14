@@ -7,23 +7,23 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Swiftie Web</title>
     @vite('resources/css/app.css')
+
     <link rel="icon" type="image/x-icon" href="{{ URL('images/taylor.png') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/admin.css') }}">
 
 </head>
 
-<body class="bg-white">
+<body class="bg-white ">
 
     <!--navbar starts here -->
     <!-- Main navigation container -->
-    <nav class="relative flex w-full flex-wrap items-center justify-between py-2 bg-sky-500/75 shadow-lg lg:py-4 sticky top-0 fixed  left-0 w-full navbar"
+    <nav class="relative flex w-full flex-wrap items-center justify-between py-2 bg-sky-500/75 shadow-lg lg:py-4 sticky top-0 fixed  left-0 w-full navbar z-50"
         data-te-navbar-ref>
         <div class="flex w-full flex-wrap items-center justify-between px-3">
             <div>
                 <a class="mx-2 my-1 flex items-center text-neutral-900 hover:text-neutral-900 focus:text-neutral-900 lg:mb-0 lg:mt-0"
                     href="{{ route('home') }}">
-                    <img class="mr-2" src="{{ URL('images/seagull.png') }}" style="height: 40px" alt="TE Logo"
-                        loading="lazy" />
+                    <img class="mr-2" src="{{ URL('images/seagull.png') }}" style="height: 40px" loading="lazy" />
                 </a>
             </div>
 
@@ -85,7 +85,7 @@
         @yield('adminContent')
     </div>
 
-
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@2"></script>
 
 </body>
 

@@ -82,7 +82,6 @@ class SwiftieController extends Controller
             ->join('albums', 'swifties.album_id', '=', 'albums.album_id')
             ->select('swifties.name', 'albums.album_name')
             ->get()->toArray();
-
         return response()->json($swifties);
     }
 

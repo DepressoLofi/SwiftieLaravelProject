@@ -3,6 +3,9 @@
 @section('adminContent')
 
     <body>
+        <div class="min-h-[60px] mx-20">
+            @include('layout.alert')
+        </div>
         <div class="flex justify-end me-20 mt-6">
             <a href="{{ route('blogs.adminCreate') }}">
                 <button
@@ -78,36 +81,6 @@
             </table>
 
         </div>
-
-        {{-- <tbody>
-                @foreach ($swifties as $swiftie)
-                    <tr class="border-b dark:border-neutral-500 bg-white">
-                        <td class="border border-neutral-800 text-black font-semibold px-6 py-4">
-                            {{ $swiftie->name }}
-                        </td>
-                        <td class="border border-neutral-800 text-black font-normal px-6 py-4">
-                            {{ $swiftie->album_name }}
-                        </td>
-                    </tr>
-                @endforeach
-
-            </tbody> --}}
-
-
-
-
-        {{-- <table>
-            <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Content</th>
-                    <th>Last updated</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-
-
-        </table> --}}
 
     </body>
 @endsection

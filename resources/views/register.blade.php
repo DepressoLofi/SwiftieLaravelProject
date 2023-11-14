@@ -3,7 +3,7 @@
 @section('content')
     <div class="flex justify-center items-center h-screen">
         <div class="w-full max-w-xs">
-            <form action="{{ route('register') }}" method="post" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <form action="{{ route('register') }}" method="post" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 mt-4">
                 @csrf
                 <h1 class="mb-4 text-3xl text-center font-extrabold leading-none tracking-tight text-gray-900 mb-10">
                     Swiftie Form</h1>

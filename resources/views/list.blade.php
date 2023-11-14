@@ -13,10 +13,10 @@
                 class="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">Number of swifties:
             </span>{{ $count }}</h1>
     </div>
-    <div class="flex">
+    <div class="flex me-10">
         <div class="w-1/6"></div>
-        <div class="flex justify-around items-center w-4/6">
-            <div class="w-2/3 me-10" style="padding-bottom: 500px;">
+        <div class="flex justify-between items-center w-4/6">
+            <div class="w-2/3 me-14" style="padding-bottom: 500px;">
                 <div class="me-16" id="chartContainer"></div>
 
 

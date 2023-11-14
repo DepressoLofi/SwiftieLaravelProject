@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\blog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class BlogController extends Controller
 {
@@ -19,17 +20,34 @@ class BlogController extends Controller
 
     public function store(Request $request)
     {
+        $validationRules = [
+            'img' => 'required | mimetypes:image/jpeg,image/png,image/jpg,image/gif,image/webp|max:2048',
+            'title' => 'required',
+            'content' => 'required'
+        ];
+
+        $validationMessage = [
+            'img.required' => '(Image slot cannot be left empty)',
+            'img.mimetypes' => '(Please, only input image)',
+            'title.required' => '(Title cannot be left empty)',
+            'content.required' => '(Content cannot be left empty)'
+        ];
+
+        $validator = Validator::make($request->all(), $validationRules, $validationMessage);
+        if ($validator->fails()) {
+            return back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
         $fileName = time() . $request->file('img')->getClientOriginalName();
         $path = $request->file('img')->storeAs('images/blogs', $fileName, 'public');
         $imgPath = '/storage/' . $path;
-
         $data = $this->blogStore($request, $imgPath);
 
         $created = blog::create($data);
         if ($created) {
-            return redirect()->back()->with('message', 'success');
-        } else {
-            return redirect()->back()->with('message', 'fail');
+            return redirect()->route('blogs.adminIndex')->with('message', 'create');
         }
     }
 
@@ -65,12 +83,43 @@ class BlogController extends Controller
 
     public function adminUpdate(Request $request, $id)
     {
-        $updateData = $this->blogUpdate($request);
-        blog::where('id', $id)
-            ->update(['title' => $updateData['title'], 'content' => $updateData['content']]);
-        return redirect()->route('blogs.adminIndex')->with(['message' => 'Post successfully updated!']);
-    }
+        $validationRules = [
+            'img' => 'mimetypes:image/jpeg,image/png,image/jpg,image/gif,image/webp|max:2048',
+            'title' => 'required',
+            'content' => 'required'
+        ];
 
+        $validationMessage = [
+            'img.mimetypes' => '(Please, only input image)',
+            'title.required' => '(Title cannot be left empty)',
+            'content.required' => '(Content cannot be left empty)'
+        ];
+
+        $validator = Validator::make($request->all(), $validationRules, $validationMessage);
+
+        if ($validator->fails()) {
+            return back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $blog = blog::find($id);
+        $blog->title = $request->title;
+        $blog->content = $request->content;
+
+        if ($request->hasFile('img')) {
+            if ($blog->image_path) {
+                Storage::delete(str_replace('/storage/', 'public/', $blog->image_path));
+            }
+            $fileName = time() . $request->file('img')->getClientOriginalName();
+            $path = $request->file('img')->storeAs('images/blogs', $fileName, 'public');
+            $imgPath = '/storage/' . $path;
+            $blog->image_path = $imgPath;
+        }
+        $blog->save();
+
+        return redirect()->route('blogs.adminIndex')->with('message', 'update');
+    }
     //** delete */
 
     public function adminDestroy($id)
@@ -80,10 +129,8 @@ class BlogController extends Controller
         if (Storage::disk('public')->exists($imgPath)) {
             Storage::disk('public')->delete($imgPath);
             blog::where('id', $id)->delete();
-        } else {
-            dd('File does not exist.', $imgPath);
         }
-        return back();
+        return back()->with('message', 'delete');
     }
 
     private function blogStore($request, $imgPath)
@@ -102,6 +149,12 @@ class BlogController extends Controller
             'title' => $request->title,
             'content' => $request->content
         ];
+    }
+
+    //Validation
+
+    private function validationCheck($request)
+    {
     }
 
 
@@ -171,6 +224,7 @@ class BlogController extends Controller
 
     public function update_blog(Request $request, $id)
     {
+        $allowedMimeTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/bmp', 'image/webp', 'image/tiff', 'image/svg+xml', 'image/x-icon', 'image/vnd.microsoft.icon', 'image/vnd.wap.wbmp', 'image/apng'];
         $blog = blog::find($id);
 
         if ($blog) {
@@ -220,4 +274,13 @@ class BlogController extends Controller
         //         'message' => 'Update failed. The file does not exist or has an unsupported mime type.',
         //         'status' => 'error'
         //     ]);
+        // }
+
+
+
+        // if ($request->img == null) {
+        //     $updateData = $this->blogUpdate($request);
+        //     blog::where('id', $id)
+        //         ->update(['title' => $updateData['title'], 'content' => $updateData['content']]);
+        //     return redirect()->route('blogs.adminIndex')->with(['message' => 'Post successfully updated!']);
         // }
