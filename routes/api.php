@@ -30,5 +30,5 @@ Route::post("/swifties", [SwiftieController::class, 'storeSwiftie']);
 Route::get("/blogs", [BlogController::class, 'get_blogs']);
 Route::get("/blogs/{id}", [BlogController::class, 'get_blog']);
 Route::post("/blogs", [BlogController::class, 'create_blog']);
-Route::put('/blogs/{id}/update', [BlogController::class, 'update_blog']);
+Route::post('/blogs/{id}/update', [BlogController::class, 'update_blog']);
 Route::delete('/blogs/{id}', [BlogController::class, 'delete_blog']);

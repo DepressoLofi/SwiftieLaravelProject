@@ -143,19 +143,8 @@ class BlogController extends Controller
         ];
     }
 
-    private function blogUpdate($request)
-    {
-        return [
-            'title' => $request->title,
-            'content' => $request->content
-        ];
-    }
-
     //Validation
 
-    private function validationCheck($request)
-    {
-    }
 
 
     //** API CRUD */
@@ -225,12 +214,20 @@ class BlogController extends Controller
     public function update_blog(Request $request, $id)
     {
         $allowedMimeTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/bmp', 'image/webp', 'image/tiff', 'image/svg+xml', 'image/x-icon', 'image/vnd.microsoft.icon', 'image/vnd.wap.wbmp', 'image/apng'];
-        $blog = blog::find($id);
 
-        if ($blog) {
-            $updateData = $this->blogUpdate($request);
-            $blog->update(['title' => $updateData['title'], 'content' => $updateData['content']]);
-            $blog = $blog->toArray();
+
+        if (in_array($request->file('img')->getMimeType(), $allowedMimeTypes)) {
+            $blog = blog::find($id);
+            $blog->title = $request->title;
+            $blog->content = $request->content;
+            if ($blog->image_path) {
+                Storage::delete(str_replace('/storage/', 'public/', $blog->image_path));
+            }
+            $fileName = time() . $request->file('img')->getClientOriginalName();
+            $path = $request->file('img')->storeAs('images/blogs', $fileName, 'public');
+            $imgPath = '/storage/' . $path;
+            $blog->image_path = $imgPath;
+            $blog->save();
             return response()->json([
                 'message'   => 'Successfully updated a record',
                 'status' => 'success',
@@ -244,43 +241,3 @@ class BlogController extends Controller
         }
     }
 }
-
-
-        // $allowedMimeTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/bmp', 'image/webp', 'image/tiff', 'image/svg+xml', 'image/x-icon', 'image/vnd.microsoft.icon', 'image/vnd.wap.wbmp', 'image/apng'];
-
-
-        // $imgPath = str_replace("/storage/", "", blog::where('id', $id)->value('image_path'));
-
-
-        // if (Storage::disk('public')->exists($imgPath) && in_array($request->file('img')->getMimeType(), $allowedMimeTypes)) {
-        //     Storage::disk('public')->delete($imgPath);
-        //     $fileName = time() . $request->file('img')->getClientOriginalName();
-        //     $path = $request->file('img')->storeAs('images/blogs', $fileName, 'public');
-        //     $imgPath = '/storage/' . $path;
-        //     $data = [
-        //         'image_path' => $imgPath,
-        //         'title' => $request->title,
-        //         'content' => $request->content,
-        //     ];
-        //     $blog = blog::find($id);
-        //     $blog->update($data);
-        //     return response()->json([
-        //         'message' => 'Update Success',
-        //         'status' => 'success',
-        //         'blog' => $blog
-        //     ]);
-        // } else {
-        //     return response()->json([
-        //         'message' => 'Update failed. The file does not exist or has an unsupported mime type.',
-        //         'status' => 'error'
-        //     ]);
-        // }
-
-
-
-        // if ($request->img == null) {
-        //     $updateData = $this->blogUpdate($request);
-        //     blog::where('id', $id)
-        //         ->update(['title' => $updateData['title'], 'content' => $updateData['content']]);
-        //     return redirect()->route('blogs.adminIndex')->with(['message' => 'Post successfully updated!']);
-        // }

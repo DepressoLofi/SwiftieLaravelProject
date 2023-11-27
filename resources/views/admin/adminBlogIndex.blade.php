@@ -48,7 +48,7 @@
                             <td class="border border-neutral-800 text-black font-semibold py-4">
                                 {{ date('d-F-Y', strtotime($blog['updated_at'])) }}</td>
                             <td style="min-width: 120px; max-width: 120px;">
-                                <div class="flex justify-around mx-8 ">
+                                <div class="flex justify-center mx-8 ">
                                     <a href="{{ route('blogs.adminEdit', $blog['id']) }}">
                                         <button
                                             class="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 border border-teal-700 rounded">
@@ -57,7 +57,7 @@
                                     </a>
 
                                     <form action="{{ route('blogs.adminDestroy', $blog['id']) }}" method="post"
-                                        id="delete-form">
+                                        class="ms-3" id="delete-form">
                                         @csrf
                                         @method('delete')
                                         <button
